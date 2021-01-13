@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+group 'advisor'
+version '1.2-PAGINATED'
+
+sourceCompatibility = 11
+mainClassName = 'Music_Advisor.App'
+
+repositories {
+    // Use mavenCentral for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:29.0-jre'
+
+    // Used to process JSON files
+    compile 'com.google.code.gson:gson:+'
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "Music_Advisor.App")
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
